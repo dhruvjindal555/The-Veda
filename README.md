@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# The Veda — Indian Mythology Chatbot
 
-## Getting Started
+A purpose-built chatbot trained on the knowledge of Indian mythology,
+Vedic philosophy, and the great epics.
 
-First, run the development server:
+Live demo: [https://your-vercel-url.vercel.app](https://the-veda.vercel.app/)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## What I built
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The Veda is a scholarly chatbot that lets users explore Indian mythology
+as a living philosophical tradition — not just a collection of stories.
+The bot is trained on a deep knowledge base covering the four Vedas,
+the Upanishads, the Mahabharata, the Bhagavad Gita, the Ramayana, the
+Trimurti, the Dashavatara, the 18 Mahapuranas, Hindu cosmology, and the
+six schools of Vedantic philosophy.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The persona is "The Rishi" — a Vedic seer who responds in flowing,
+scholarly prose, always grounding answers in philosophical and symbolic
+context, not just narrative.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Why Indian mythology
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Indian mythology is one of the richest and most philosophically dense
+knowledge traditions in the world — but most people's exposure to it is
+surface-level. I wanted to build something that treats it seriously as
+a subject of learning, not trivia. The depth of the knowledge base and
+the scholarly tone of the bot are deliberate — this should feel like
+talking to someone who has actually read the texts.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Technical decisions
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Stack**
+- Next.js 14 (App Router)
+- TypeScript
+- Tailwind CSS
+- Gemini 2.5 Flash (main responses)
+- Gemini 2.0 Flash (follow-up question generation — faster model)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Architecture**
+- `src/types/` — shared TypeScript types
+- `src/hooks/` — useChatHistory hook (localStorage persistence)
+- `src/lib/` — suggestions, polish options, constants
+- `src/components/chat/` — Sidebar, ChatMessages, ChatInput,
+  FollowUpSuggestions, PromptPolisher
+- `src/app/api/chat/` — API route handling both chat and follow-up modes
+
+**Key product decisions**
+- Two separate Gemini calls per turn — one for the main response,
+  one for generating contextual follow-up questions. The follow-up
+  call uses the faster 2.0 Flash model so it doesn't block the UI.
+- Chat history persisted in localStorage — full session history
+  survives page refresh, no database needed.
+- Prompt polisher — four refinement options (elaborate, simplify,
+  philosophical, story) that transform the last sent message and
+  resend it.
+- Error handling — all Gemini API errors (429 rate limit, 403 bad key,
+  503 overload, safety blocks) are caught and shown as clean,
+  human-readable messages.
+
+**Design**
+- Swiss design principles — strict grid, disciplined typography,
+  generous whitespace, minimal color
+- EB Garamond for all body text — chosen deliberately for its
+  editorial, ancient-manuscript quality
+- Color palette: deep crimson sidebar, saffron accents, parchment
+  backgrounds — warm, sacred, temple-like without being decorative
+- Landing page: single large heading, one CTA, nothing else
+
+---
+
+## Running locally
+
+1. Clone the repo
+2. Install dependencies — `npm install`
+3. Create `.env.local` with your Gemini API key:
+   `GEMINI_API_KEY=your_key_here`
+4. Run — `npm run dev`
+5. Open `http://localhost:3000`
+
+Get a free Gemini API key at https://aistudio.google.com
