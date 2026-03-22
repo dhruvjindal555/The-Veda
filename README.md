@@ -3,7 +3,7 @@
 A purpose-built chatbot trained on the knowledge of Indian mythology,
 Vedic philosophy, and the great epics.
 
-Live demo: [https://your-vercel-url.vercel.app](https://the-veda.vercel.app/)
+Live demo: [https://the-veda.vercel.app](https://the-veda.vercel.app/)
 
 ---
 
