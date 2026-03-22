@@ -27,8 +27,7 @@ export default function Home() {
             Mahabharata · Ramayana · Puranas
           </p>
           <blockquote className="font-garamond text-base md:text-lg italic text-stone leading-relaxed max-w-xs">
-            "The soul is neither born nor does it die at any time. It is unborn, eternal, ever-existing, and primeval."
-            <cite className="not-italic block mt-4 font-sans text-xs tracking-widest uppercase text-chalk">
+            &ldquo;The soul is neither born nor does it die at any time. It is unborn, eternal, ever-existing, and primeval.&rdquo;            <cite className="not-italic block mt-4 font-sans text-xs tracking-widest uppercase text-chalk">
               — Bhagavad Gita, Chapter 2
             </cite>
           </blockquote>
